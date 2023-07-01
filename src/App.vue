@@ -127,6 +127,9 @@ const linkLabel = ref('');
 }
 
 @media screen and (max-width: 1280px) {
+  .links {
+    margin-right: 2rem;
+  }
   .about-me {
     label {
       margin-left: 1rem;
@@ -147,12 +150,12 @@ const linkLabel = ref('');
   .about-me {
     flex-direction: column;
     label {
-      margin-left: 0;
-      margin-right: 0;
+      margin-left: 2rem;
+      margin-right: 2rem;
       margin-top: 5rem;
     }
     .headshot-polaroid {
-      margin-left: 10vw;
+      margin-left: auto;
     }
   }
 }

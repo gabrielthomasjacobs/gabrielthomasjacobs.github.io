@@ -88,7 +88,7 @@ const imageUrl = (type: 'png' | 'webp') => {
   max-width: 100%;
   word-wrap: break-word;
   h1 {
-    font-size: 2rem;
+    font-size: 1.75rem;
     margin: 0 0 .75rem 0;
     line-height: 100%;
   }
@@ -108,6 +108,7 @@ const imageUrl = (type: 'png' | 'webp') => {
   &:after {
     background: rgba(255,255,235,.6);
     box-shadow: 0 1px 3px rgba(0,0,0,.4);
+    z-index: 1;
     content: "";
     display: block;
     height: 30px;
