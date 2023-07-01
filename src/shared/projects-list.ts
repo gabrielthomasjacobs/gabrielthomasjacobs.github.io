@@ -10,14 +10,14 @@ export const projects = [
     expandedSummary: {
       contribution: 'Maintenence and major feature additions.',
       challenges: `This application has a vast amount of features, many of which are written in AngularJS. Additionally, the target is ES5, so many newer JS features are not available and must be polyfilled or avoided.`,
-      final: 'This application is maintained and shipped with our core offerings.',
+      state: `This application is maintained and shipped with our core offerings. It's TBD ( To Be Deprecated ) once the new Search Interface is operational.`,
     },
   },
   {
     id: 2,
-    title: 'Old Management Interface',
+    title: '*Mostly* Deprecated Management Interface',
     description: 'A complex MPA for managing the indexing application.',
-    thumbnail: 'hq_dashboard',
+    thumbnail: 'manage',
     timeRange: 'Mar 2018 - Ongoing',
     stack: ['Angular', 'AngularJS', 'TypeScript'],
     expandedSummary: {
@@ -28,7 +28,7 @@ export const projects = [
   },
   {
     id: 3,
-    title: 'New Management Interface',
+    title: 'Management Interface',
     description: 'A complex MPA for managing the indexing application.',
     thumbnail: 'hq_dashboard',
     timeRange: 'Mar 2018 - Ongoing',

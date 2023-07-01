@@ -57,7 +57,7 @@ const linkLabel = ref('');
       <label>
         Welcome!
         <br/>
-        My name is Gabriel, I build web apps using modern frameworks like Vue, React, and Angular.
+        My name is Gabriel; I build web apps using modern frameworks such as Vue, React, and Angular.
         <br/>
         Take a look at my past projects below!
       </label>
