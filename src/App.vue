@@ -55,9 +55,9 @@ const linkLabel = ref('');
         :style="{transform: 'rotate(-2deg)'}"
         tape/>
       <label>
-        Welcome!
+        Welcome! My name is Gabriel Jacobs.
         <br/>
-        My name is Gabriel; I build web apps using modern frameworks such as Vue, React, and Angular.
+        I build web apps using modern frameworks such as Vue, React, and Angular.
         <br/>
         Take a look at my past projects below!
       </label>
@@ -123,21 +123,23 @@ const linkLabel = ref('');
 }
 
 .summary {
-  padding-bottom: 5rem;
-  margin-left: 2rem;
-  margin-right: 2rem;
+  max-width: 50vw;
 }
 
 .projects {
   display: flex;
   flex-direction: row;
   gap: clamp(2rem, 5vw, 5rem);
-  margin-left: 5rem;
 }
 
 @media screen and (max-width: 1280px) {
   .links {
     margin-right: 2rem;
+  }
+  .projects {
+    margin-left: 2rem;
+    margin-right: 2rem;
+    padding-left: 5rem;
   }
   .about-me {
     label {
@@ -151,12 +153,13 @@ const linkLabel = ref('');
   }
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 960px) {
   .links {
     width: 100vw;
     justify-content: center;
     margin-right: 0;
   }
+
   .about-me {
     flex-direction: column;
     label {
@@ -170,7 +173,8 @@ const linkLabel = ref('');
   }
 
   .projects {
-   flex-direction: column; 
+   flex-direction: column;
+   padding-left: 0px;
   }
 }
 
