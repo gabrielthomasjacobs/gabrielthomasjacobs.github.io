@@ -3,17 +3,16 @@ import { reactive, computed, ref } from 'vue';
 import ProjectPolaroid from './ProjectPolaroid.vue';
 import { projects as projectsList } from '../shared/projects-list';
 import { useElementSize } from '@vueuse/core';
-import randomColor from 'randomcolor';
+import { generateRandomColor } from '../shared/utils';
 
 const emit = defineEmits(['cycleCard']);
 const randomDeg = () => `${Math.floor(Math.random() * 10) - 8}deg`;
 const randomOffset = () => `${Math.floor(Math.random() * 10) - 20}px`;
-const getTextColor = () => randomColor({ luminosity: 'dark' });
+const getTextColor = () => generateRandomColor('dark');
 const lastIndex = projectsList.length - 1;
 const canCycle = ref(true);
 const lastCard = ref(null);
 const { width } = useElementSize(lastCard);
-const hasShuffled = ref(false);
 
 const projects = reactive(projectsList.map((project, index) => {
   return {
@@ -25,18 +24,12 @@ const projects = reactive(projectsList.map((project, index) => {
     color: getTextColor()
   }
 }));
-
+const nextButtonHoverColor = generateRandomColor('light');
 const firstCardRotation = computed(() => `rotate(${projects[0].rotate})`);
 const cardShuffleOffset = computed(() => `${(width.value || 100) * 1.2}px`);
-const shuffleMessage = computed(() => {
-  if(hasShuffled.value) return ""
-  const maxTouchPoints = navigator?.maxTouchPoints || 0;
-  return maxTouchPoints > 0 && maxTouchPoints !== 256 ? 'Tap to see the next project! ⤴' : 'Click to see the next project! ⤴'
-});
 
 const cycleCard = () => {
   if (!canCycle.value) return;
-  hasShuffled.value = true;
   canCycle.value = false;
   const lastIndex = projects.length - 1;
   projects[lastIndex].order += projects.length;
@@ -49,44 +42,58 @@ const cycleCard = () => {
     projects[0].sendToBack = !projects[0].sendToBack;
     canCycle.value = true;
     emit('cycleCard', { id: projects[lastIndex].id })
-  }, 900);
+  }, 850);
   projects[lastIndex].sendToBack = !projects[lastIndex].sendToBack;
 }
 </script>
 
 <template>
-  <div class="deck-container"
-    :data-shuffle-message="shuffleMessage">
-    <ProjectPolaroid class="card"
-    :style="{transform: `rotate(${project.rotate})`, 
-              marginTop: project.offset, 
-              marginLeft: project.offset
-            }"
-    @click="cycleCard"
-    v-for="project in projects.slice(0, -1)"
-    :key="project.title"
-    :color="project.color"
-    :title="project.title"
-    :thumbnail="project.thumbnail"
-    :time-range="project.timeRange"
-    :class="{ cycle: project.sendToBack }"/>
-    <!-- leave last card outside of v-for, for ref binding -->
-    <ProjectPolaroid ref="lastCard"
-      @click.stop="cycleCard"
-      @mouseover.stop=""
-      class="card"
-      :key="projects[lastIndex].title"
-      :title="projects[lastIndex].title"
-      :thumbnail="projects[lastIndex].thumbnail"
-      :time-range="projects[lastIndex].timeRange"
-      :color="projects[lastIndex].color"
-      :style="{
-        transform: `rotate(${projects[lastIndex].rotate})`, 
-        position: 'relative',
-        marginTop: projects[lastIndex].offset, 
-        marginLeft: projects[lastIndex].offset
-      }"
-      :class="{ cycle: projects[lastIndex].sendToBack }"/>
+  <div class="deck-container">
+    <div class="rotation-wrapper">
+      <ProjectPolaroid class="card"
+        :style="{transform: `rotate(${project.rotate})`, 
+                  marginTop: project.offset, 
+                  marginLeft: project.offset
+                }"
+        @click="cycleCard"
+        v-for="project in projects.slice(0, -1)"
+        :key="project.title"
+        :color="project.color"
+        :title="project.title"
+        :thumbnail="project.thumbnail"
+        :time-range="project.timeRange"
+        :class="{ cycle: project.sendToBack }"/>
+        <!-- leave last card outside of v-for, for ref binding -->
+      <ProjectPolaroid ref="lastCard"
+        @click.stop="cycleCard"
+        @mouseover.stop=""
+        class="card"
+        :key="projects[lastIndex].title"
+        :title="projects[lastIndex].title"
+        :thumbnail="projects[lastIndex].thumbnail"
+        :time-range="projects[lastIndex].timeRange"
+        :color="projects[lastIndex].color"
+        :style="{
+          transform: `rotate(${projects[lastIndex].rotate})`, 
+          position: 'relative',
+          marginTop: projects[lastIndex].offset, 
+          marginLeft: projects[lastIndex].offset
+        }"
+        :class="{ cycle: projects[lastIndex].sendToBack }"/>
+    </div>
+
+    <div class="controls">
+      <button @click="cycleCard" :style="`--hover-color: ${nextButtonHoverColor}`">
+          <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+            viewBox="0 0 1024 1024" enable-background="new 0 0 1024 1024" xml:space="preserve">
+          <path d="M124.396,377h476.322l-186.23-180.625c-48.489-47.396-48.489-117.277,0-164.697c24.264-23.711,56.009-32.068,87.79-32.068
+            c31.699,0,63.539,13.551,87.648,37.263l398.11,372.237c48.477,47.444,48.477,124.735,0,172.135l-398.11,407.584
+            c-48.396,47.398-127.008,47.529-175.438,0.153c-48.489-47.444-48.489-135.418,0-182.862L600.719,625H124.396
+            C55.939,625,0.378,568.059,0.378,501C0.378,433.92,55.939,377,124.396,377z"/>
+        </svg>
+      Next Project
+      </button>
+    </div>
   </div>
 </template>
 
@@ -96,15 +103,27 @@ const cycleCard = () => {
   flex-direction: column;
   align-items: center;
   width: 100%;
-  margin-top: 8rem;
-  margin-bottom: 5rem;
+  min-width: clamp(20rem, 25vw, 90vw);
+  margin-top: 2rem;
+}
+
+.rotation-wrapper {
   transform-style: preserve-3d;
-  &:after {
-    content: attr(data-shuffle-message);
-    min-height: 1rem;
-    position: relative;
-    top: 2.5rem;
-    font-size: 1.5rem;
+  min-height: clamp(20rem, 25vw, 90vw);
+}
+
+button {
+  font-family: inherit;
+  color: white;
+  fill: white;
+  background: none;
+  border: none;
+  margin-top: 2rem;
+  transition: all .5s ease;
+  &:hover {
+    cursor: pointer;
+    fill: var(--hover-color);
+    color: var(--hover-color);
   }
 }
 .card {

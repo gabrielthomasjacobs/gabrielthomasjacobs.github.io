@@ -30,7 +30,7 @@ export const projects = [
     id: 3,
     title: 'Management Interface',
     description: 'A complex MPA for managing the indexing application.',
-    thumbnail: 'hq_dashboard',
+    thumbnail: 'hq',
     timeRange: 'Mar 2018 - Ongoing',
     stack: ['Angular', 'TypeScript'],
     expandedSummary: {
@@ -47,8 +47,9 @@ export const projects = [
     link: '',
     thumbnail: 'arcgis',
     timeRange: 'Apr 2019 - Feb 2021',
+    stack: ['N/A'],
     expandedSummary: {
-      contribution: 'I led the planning, design, and was the project lead for this integration.',
+      contribution: 'I led the planning, design, and was the product owner for this integration.',
       challenges: 'As with any integration, matching the existing look and feel of the software and addressing the holes in the SDK was a challenge.',
       state: 'The addins are publicly available on the ArcGIS Marketplace as well as our public downloads page.',
     },

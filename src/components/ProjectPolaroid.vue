@@ -64,7 +64,7 @@ const imageUrl = (type: 'png' | 'webp') => {
     display: contents;
   }
   img {
-    object-fit: contain;
+    object-fit: cover;
     max-height: 100%;
     max-width: 100%;
     clip-path: inset(2px 1px 2px 1px);

@@ -3,11 +3,11 @@ import { Ref, ref } from 'vue';
 import ProjectPolaroid from './components/ProjectPolaroid.vue';
 import SlideDeck from './components/SlideDeck.vue';
 import ProjectSummary from './components/ProjectSummary.vue';
-import randomColor from 'randomcolor';
+import { generateRandomColor } from './shared/utils';
 
 const selectedProjectId: Ref<number | undefined> = ref(undefined);
 const updateProjectDescription = (payload: {id: number}) => selectedProjectId.value = payload.id;
-const newColor = (luminosity: 'light' | 'dark' = 'light') => randomColor({luminosity});
+const newColor = (luminosity: 'light' | 'dark' = 'light') => generateRandomColor(luminosity);
 const linkLabel = ref('');
 </script>
 
@@ -62,10 +62,12 @@ const linkLabel = ref('');
         Take a look at my past projects below!
       </label>
     </section>
-    <SlideDeck @cycle-card="updateProjectDescription"/>
-    <ProjectSummary 
-      :projectId="selectedProjectId"
-      class="summary"/>
+    <section class="projects">
+      <SlideDeck @cycle-card="updateProjectDescription"/>
+      <ProjectSummary 
+        :projectId="selectedProjectId"
+        class="summary"/>
+    </section>
   </div>
 </template>
 
@@ -126,6 +128,13 @@ const linkLabel = ref('');
   margin-right: 2rem;
 }
 
+.projects {
+  display: flex;
+  flex-direction: row;
+  gap: clamp(2rem, 5vw, 5rem);
+  margin-left: 5rem;
+}
+
 @media screen and (max-width: 1280px) {
   .links {
     margin-right: 2rem;
@@ -146,6 +155,7 @@ const linkLabel = ref('');
   .links {
     width: 100vw;
     justify-content: center;
+    margin-right: 0;
   }
   .about-me {
     flex-direction: column;
@@ -157,6 +167,10 @@ const linkLabel = ref('');
     .headshot-polaroid {
       margin-left: auto;
     }
+  }
+
+  .projects {
+   flex-direction: column; 
   }
 }
 

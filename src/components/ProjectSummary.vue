@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue';
 import { projects } from '../shared/projects-list';
-import randomcolor from 'randomcolor';
+import { generateRandomColor } from '../shared/utils';
 
 const props = defineProps({
   projectId: Number
@@ -23,38 +23,38 @@ watch(() => props.projectId, () => {
     <div v-if="project.stack">
       <span
       class="section-label"
-      :style="{color: randomcolor({luminosity: 'light'})}">Stack: </span>
+      :style="{color: generateRandomColor('light')}">Stack: </span>
       {{ project.stack?.join(', ') }}
     </div>
     <div>
       <span class="section-label"
-      :style="{color: randomcolor({luminosity: 'light'})}">Project Description: </span>
+      :style="{color: generateRandomColor('light')}">Project Description: </span>
       {{ project.description }}
     </div>
     <div>
       <span class="section-label"
-      :style="{color: randomcolor({luminosity: 'light'})}">Contribution: </span>
+      :style="{color: generateRandomColor('light')}">Contribution: </span>
       {{ project.expandedSummary.contribution }}
     </div>
     <div>
       <span class="section-label"
-      :style="{color: randomcolor({luminosity: 'light'})}">Challenges: </span>
+      :style="{color: generateRandomColor('light')}">Challenges: </span>
       {{ project.expandedSummary.challenges }}
     </div>
     <div v-if="project.expandedSummary.state">
       <span class="section-label"
-      :style="{color: randomcolor({luminosity: 'light'})}">State: </span>
+      :style="{color: generateRandomColor('light')}">State: </span>
       {{ project.expandedSummary.state }}
     </div>
     <div  v-if="project.expandedSummary.final">
       <span class="section-label"
-      :style="{color: randomcolor({luminosity: 'light'})}">Extra: </span>
+      :style="{color: generateRandomColor('light')}">Extra: </span>
       {{ project.expandedSummary.final }}
     </div>
     <div v-if="project.link && project.link !== ''">
       <a :href="project.link || ''"
         class="section-label"
-        :style="{color: randomcolor({luminosity: 'light'})}"
+        :style="{color: generateRandomColor('light')}"
         :aria-label="project.linkText"
         target="_blank">
         {{project.linkText}}
@@ -76,6 +76,7 @@ a:visited {
 }
 .summary-container {
   text-align: left;
+  min-height: min(80vh, 64rem);
   div {
     font-size: 1.5rem;
     margin-bottom: 1rem;
