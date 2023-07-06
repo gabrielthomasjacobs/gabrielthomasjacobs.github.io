@@ -71,6 +71,8 @@ const imageUrl = (type: 'png' | 'webp') => {
     aspect-ratio: auto 4/3;
     width: 800px;
     height: 600px;
+    // force new rendering layer, to prevent img flickering
+    transform: translateZ(0px);
   }
 }
 

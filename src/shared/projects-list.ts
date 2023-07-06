@@ -44,7 +44,6 @@ export const projects = [
     title: 'Voyager Integration with Esri',
     description: `Esri is a company that provides GIS software and services. 
     Because many of our customers use Esri's products, we wanted to create a way for them to use our search interface within their GIS software; specifically "ArcGIS Pro" and "ArcMap".`,
-    link: '',
     thumbnail: 'arcgis',
     timeRange: 'Apr 2019 - Feb 2021',
     stack: ['N/A'],
@@ -89,8 +88,8 @@ export const projects = [
     id: 7,
     title: 'Grafana-Zendesk Plugin',
     description: 'A Grafana plugin that allows users to query and import Zendesk ticket information.',
-    link: 'https://github.com/gabrielthomasjacobs/grafana-zendesk-plugin/',
-    linkText: 'See project on GitHub',
+    link: 'https://grafana.com/grafana/plugins/gabrielthomasjacobs-zendesk-datasource/',
+    linkText: 'See project on Grafana',
     thumbnail: 'grafana',
     timeRange: 'March 2023 - Ongoing',
     stack: ['Go', 'React', 'TypeScript'],
@@ -99,7 +98,7 @@ export const projects = [
         I used the Grafana web components as a base for the UI. 
         As this was my first time authoring Go code, it required a lot of documentation referencing.`,
       challenges: `Not only was this my first time using Go, but also doing fullstack, so bouncing between the front and back end was a new challenge.`,
-      state: 'This plugin is currently available on my GitHub and is under review with the Grafana team to be published in the community listing.',
+      state: 'This plugin is currently listed on the Grafana Community Plugins page and is also available as open-source on my Github.',
       final: 'I had a lot of fun learning Go and building this plugin. I\'m looking forward to using Go more in the future.',
     },
   },
